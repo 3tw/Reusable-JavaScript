@@ -12,17 +12,18 @@ const createFunctionWithClosure = (callback, param) => {
 // and array of objects with page-specific classes and appropriate items 
 // that have to be marked with an "active-page" class
 
-function determineActivePage(activePage, pages) {
+function indexActivePageItems(activePage, pages, addedClass) {
   // Use normal for loop to break it once the page is found
   for (let i = 0; i < pages.length; i++) {
     const page = pages[i];
 
     if (activePage.classList.contains(page.pageIndex)) {
-      document.querySelectorAll(page.markedItem).forEach((item) => item.classList.add("active-page"));
+      document.querySelectorAll(page.markedItem).forEach((item) => item.classList.add(addedClass));
       break;
     }
   }
 }
+
 
 /* Toggle active state by adding and removing class "active" */
 // Function expects class name as a string

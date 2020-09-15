@@ -1,6 +1,6 @@
 /* Active page data */
 
-// Find element with "active-page" class
+// Find element with the class of the current page
 const activePage = document.getElementsByTagName("body")[0];
 
 // List all page-specific classes and appropriate items to be indexed
@@ -13,7 +13,7 @@ const pageIndexesAndItems = [
 
 // Find active page
 // Call function here to get the correct order
-determineActivePage(activePage, pageIndexesAndItems);
+determineActivePage(activePage, pageIndexesAndItems, "active-page");
 
 // Find element with "active-page" class
 const activePageItems = document.querySelectorAll(".active-page");
