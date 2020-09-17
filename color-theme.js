@@ -21,7 +21,7 @@ function setColorTheme(colorThemes, newTheme) {
     for (let i = 0; i < colorThemes.length; i++) {
       const theme = colorThemes[i];
 
-      if (theme.markedItem.includes(newTheme)) {
+      if (theme.indicator.includes(newTheme)) {
         document.body.setAttribute("color-theme", newTheme);
         break;
       }
@@ -31,15 +31,15 @@ function setColorTheme(colorThemes, newTheme) {
 
 /* Index appropriate elements according to active color theme */
 
-function indexColorThemeElements(colorThemes, addedClass) {
+function indexColorThemeInidicators(colorThemes, addedClass) {
   let currentTheme =
     localStorage.getItem("color-theme") !== null ? localStorage.getItem("color-theme") : "theme is not set";
 
   for (let i = 0; i < colorThemes.length; i++) {
     const theme = colorThemes[i];
 
-    if (theme.markedItem.includes(currentTheme)) {
-      document.querySelectorAll(theme.markedItem).forEach((item) => item.classList.add(addedClass));
+    if (theme.indicator.includes(currentTheme)) {
+      document.querySelectorAll(theme.indicator).forEach((item) => item.classList.add(addedClass));
       break;
     }
   }
@@ -49,15 +49,15 @@ function indexColorThemeElements(colorThemes, addedClass) {
 
 // List all color themes and relevant items to be indexed
 const colorThemes = [
-  { pageIndex: "theme-green", markedItem: ".color-dot.theme-green" },
-  { pageIndex: "theme-orange", markedItem: ".color-dot.theme-orange" },
-  { pageIndex: "theme-bordeaux", markedItem: ".color-dot.theme-bordeaux" },
-  { pageIndex: "theme-blue", markedItem: ".color-dot.theme-blue" },
-  { pageIndex: "theme-tiber", markedItem: ".color-dot.theme-tiber" }
+  { theme: "theme-green", indicator: ".color-dot.theme-green" },
+  { theme: "theme-orange", indicator: ".color-dot.theme-orange" },
+  { theme: "theme-bordeaux", indicator: ".color-dot.theme-bordeaux" },
+  { theme: "theme-blue", indicator: ".color-dot.theme-blue" },
+  { theme: "theme-tiber", indicator: ".color-dot.theme-tiber" }
 ];
 
 // Find active color theme and index items accordingly
 
 initColorTheme(defaultTheme = "theme-green");
-indexColorThemeElements(colorThemes, "active-theme");
+indexColorThemeInidicators(colorThemes, "active-theme");
 
