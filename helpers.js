@@ -80,17 +80,17 @@ const createFunctionWithClosure = (callbackFunction, ...paramaters) => {
 
 function triggerOnWindowBreak (breakpoint, triggerOn, actions) {
   // Set screen above or below breakpoint for event to take place
-  let screen
+  let screenBreak
 
   if (triggerOn === 'desktop') {
-    screen = window.matchMedia(`(min-width: ${breakpoint}px)`)
+    screenBreak = window.matchMedia(`(min-width: ${breakpoint}px)`)
   } else {
-    screen = window.matchMedia(`(max-width: ${breakpoint}px)`)
+    screenBreak = window.matchMedia(`(max-width: ${breakpoint}px)`)
   }
 
   // Attach listener
-  screen.addListener(function (screen) {
-    if (screen.matches) {
+  screenBreak.addListener(function (screenBreak) {
+    if (screenBreak.matches) {
       actions.forEach(function (action) {
         action()
       })
@@ -98,7 +98,7 @@ function triggerOnWindowBreak (breakpoint, triggerOn, actions) {
   })
 
   // Call functions
-  if (screen.matches) {
+  if (screenBreak.matches) {
     actions.forEach(function (action) {
       action()
     })
