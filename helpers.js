@@ -1,12 +1,3 @@
-/* Create a function with params that can be easily passed as a callback */
-// Function expects a callback function its paramaters
-// (!) not tested on multiple params (!)
-
-const createFunctionWithClosure = (callback, param) => {
-  const execute = () => callback(param);
-  return execute;
-};
-
 /* Determine active page and mark an item with "active-page" class */
 // Function expects element with active page class,
 // and array of objects with page-specific classes and appropriate items 
@@ -73,30 +64,43 @@ function removeActiveState(targetClass) {
   });
 }
 
-/* Trigger a callback function(s) in window break */
-// Params determine the breakpoint (e.g. 576), the callback functions created via removeActiveState() function (can be a single function or array) and whether the action is triggered when screen is bigger ("desktop") or smaller ("mobile") than breakpoint
+/* Create a function with params that can be easily passed as a callback */
+// Function expects a callback function its paramaters
+// (!) not tested on multiple params (!)
 
-function triggerOnWindowBreak(breakpoint, triggerOn, actions) {
-  
+const createFunctionWithClosure = (callbackFunction, ...paramaters) => {
+  const execute = () => callbackFunction(...paramaters)
+  return execute
+}
+
+/* Trigger a callback function(s) on window break */
+// Params determine the breakpoint (e.g. 576),
+// the callback functions created via removeActiveState() function (can be a single function or array)
+// and whether the action is triggered when screen is bigger ("desktop") or smaller ("mobile") than breakpoint
+
+function triggerOnWindowBreak (breakpoint, triggerOn, actions) {
   // Set screen above or below breakpoint for event to take place
-  let screen;
+  let screen
 
-  if (triggerOn === "desktop") {
-    screen = window.matchMedia(`(min-width: ${breakpoint}px)`);
+  if (triggerOn === 'desktop') {
+    screen = window.matchMedia(`(min-width: ${breakpoint}px)`)
   } else {
-    screen = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    screen = window.matchMedia(`(max-width: ${breakpoint}px)`)
   }
 
   // Attach listener
-  screen.addListener(function(screen) {
+  screen.addListener(function (screen) {
     if (screen.matches) {
-      if (actions.length > 1) {
-        actions.forEach(function(action) {
-          action();
-        });
-      } else {
-        actions();
-      }
+      actions.forEach(function (action) {
+        action()
+      })
     }
-  });
+  })
+
+  // Call functions
+  if (screen.matches) {
+    actions.forEach(function (action) {
+      action()
+    })
+  }
 }
