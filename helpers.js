@@ -1,87 +1,66 @@
-/* Determine active page and mark an item with "active-page" class */
-// Function expects element with active page class,
-// and array of objects with page-specific classes and appropriate items 
-// that have to be marked with an "active-page" class
-
-function indexActivePageItems(activePage, pages, addedClass) {
-  // Use normal for loop to break it once the page is found
-  if (activePage) {
-    for (let i = 0; i < pages.length; i++) {
-      const page = pages[i];
-
-      if (activePage.classList.contains(page.pageIndex)) {
-        document.querySelectorAll(page.markedItem).forEach((item) => item.classList.add(addedClass));
-        break;
-      }
-    }
-  } else {
-    return false;
-  }
-}
-
 /* Toggle active state by adding and removing class "active" */
-// Function expects class name as a string
 
-function toggleActiveState(targetClass) {
-  let el = document.querySelectorAll(targetClass);
+// Functions have two required parameters
+// - targetClass | value: class selector
+// - list | value: true (default) / false
+// * list value determines whether all elements (true) should be targeted or only the first one (false)
 
-  el.forEach(function(item) {
-    if (item.classList.contains("active")) {
-      item.classList.remove("active");
-      return "active class removed";
+function toggleActiveState (targetClass, list = true) {
+  let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
+
+  el.forEach(function (item) {
+    if (item.classList.contains('active')) {
+      item.classList.remove('active')
+      return 'active class removed'
     } else {
-      item.classList.add("active");
-      return "active class added";
+      item.classList.add('active')
+      return 'active class added'
     }
-  });
+  })
 }
 
-/* Add active state by adding class "active" */
-// Function expects class name as a string
+function addActiveState (targetClass, list = true) {
+  let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
 
-function addActiveState(targetClass) {
-  let el = document.querySelectorAll(targetClass);
-
-  el.forEach(function(item) {
-    // if (item.classList.contains("active")) {
-    item.classList.add("active");
-    return "active class added";
-    // }
-  });
+  el.forEach(function (item) {
+    item.classList.add('active')
+    return 'active class added'
+  })
 }
 
-/* Remove active state by removing class "active" */
-// Function expects class name as a string
+function removeActiveState (targetClass, list = true) {
+  let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
 
-function removeActiveState(targetClass) {
-  let el = document.querySelectorAll(targetClass);
-
-  el.forEach(function(item) {
-    // if (item.classList.contains("active")) {
-    item.classList.remove("active");
-    return "active class removed";
-    // }
-  });
+  el.forEach(function (item) {
+    item.classList.remove('active')
+    return 'active class removed'
+  })
 }
 
-/* Create a function with params that can be easily passed as a callback */
-// Function expects a callback function its paramaters
-// (!) not tested on multiple params (!)
+/* Create a function with parameters that can be passed as a callback */
 
-const createFunctionWithClosure = (callbackFunction, ...paramaters) => {
+// Functions has one required parameter and unspecified number of optional
+// - callbackFunction | value: (predefined) function
+// + parameters | value: strings
+// * parameters values are arguments for the callbackFunction
+
+const createCallbackFunction = (callbackFunction, ...paramaters) => {
   const execute = () => callbackFunction(...paramaters)
   return execute
 }
 
 /* Trigger a callback function(s) on window break */
-// Params determine the breakpoint (e.g. 576),
-// the callback functions created via removeActiveState() function (can be a single function or array)
-// and whether the action is triggered when screen is bigger ("desktop") or smaller ("mobile") than breakpoint
+
+// Functions has three required parameters
+// - breakpoint | value: number
+// - triggerOn | value: string ('desktop'/'mobile')
+// - action | value: array of functions
+// * to pass functions with paramters use createCallbackFunction beforehand
 
 function triggerOnWindowBreak (breakpoint, triggerOn, actions) {
-  // Set screen above or below breakpoint for event to take place
   let screenBreak
 
+  // Set screen above or below breakpoint for event to take place
   if (triggerOn === 'desktop') {
     screenBreak = window.matchMedia(`(min-width: ${breakpoint}px)`)
   } else {
