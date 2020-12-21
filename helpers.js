@@ -2,39 +2,50 @@
 
 // Functions have two required parameters
 // - targetClass | value: class selector
+// - stateClass | value: string (of class added), default = 'active'
 // - list | value: true (default) / false
 // * list value determines whether all elements (true) should be targeted or only the first one (false)
 
-function toggleActiveState (targetClass, list = true) {
+function toggleActiveState(targetClass, stateClass = 'active', list = true) {
   let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
 
-  el.forEach(function (item) {
-    if (item.classList.contains('active')) {
-      item.classList.remove('active')
-      return 'active class removed'
-    } else {
-      item.classList.add('active')
+  if (list === true) {
+    el.forEach(function(item) {
+      item.classList.toggle(stateClass)
+      return 'active class changed'
+    })
+  } else {
+    el.classList.toggle(stateClass)
+    return 'active class toggled'
+  }
+}
+
+function addActiveState(targetClass, stateClass = 'active', list = true) {
+  let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
+
+  if (list === true) {
+    el.forEach(function(item) {
+      item.classList.add(stateClass)
       return 'active class added'
-    }
-  })
-}
-
-function addActiveState (targetClass, list = true) {
-  let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
-
-  el.forEach(function (item) {
-    item.classList.add('active')
+    })
+  } else {
+    el.classList.add(stateClass)
     return 'active class added'
-  })
+  }
 }
 
-function removeActiveState (targetClass, list = true) {
+function removeActiveState(targetClass, stateClass = 'active', list = true) {
   let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
 
-  el.forEach(function (item) {
-    item.classList.remove('active')
+  if (list === true) {
+    el.forEach(function(item) {
+      item.classList.remove(stateClass)
+      return 'active class removed'
+    })
+  } else {
+    el.classList.remove(stateClass)
     return 'active class removed'
-  })
+  }
 }
 
 /* Create a function with parameters that can be passed as a callback */
@@ -54,10 +65,10 @@ const createCallbackFunction = (callbackFunction, ...paramaters) => {
 // Functions has three required parameters
 // - breakpoint | value: number
 // - triggerOn | value: string ('desktop'/'mobile')
-// - action | value: array of functions
+// - action | value: array (!) containing one or more functions
 // * to pass functions with paramters use createCallbackFunction beforehand
 
-function triggerOnWindowBreak (breakpoint, triggerOn, actions) {
+function triggerOnWindowBreak(breakpoint, triggerOn, actions) {
   let screenBreak
 
   // Set screen above or below breakpoint for event to take place
@@ -68,9 +79,9 @@ function triggerOnWindowBreak (breakpoint, triggerOn, actions) {
   }
 
   // Attach listener
-  screenBreak.addListener(function (screenBreak) {
+  screenBreak.addListener(function(screenBreak) {
     if (screenBreak.matches) {
-      actions.forEach(function (action) {
+      actions.forEach(function(action) {
         action()
       })
     }
@@ -78,8 +89,10 @@ function triggerOnWindowBreak (breakpoint, triggerOn, actions) {
 
   // Call functions
   if (screenBreak.matches) {
-    actions.forEach(function (action) {
+    actions.forEach(function(action) {
       action()
     })
   }
 }
+
+export { toggleActiveState, addActiveState, removeActiveState, createCallbackFunction, triggerOnWindowBreak }
