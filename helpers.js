@@ -6,7 +6,7 @@
 // - list | value: true (default) / false
 // * list value determines whether all elements (true) should be targeted or only the first one (false)
 
-function toggleActiveState(targetClass, stateClass = 'active', list = true) {
+export function toggleActiveState(targetClass, stateClass = 'active', list = true) {
   let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
 
   if (list === true) {
@@ -20,7 +20,7 @@ function toggleActiveState(targetClass, stateClass = 'active', list = true) {
   }
 }
 
-function addActiveState(targetClass, stateClass = 'active', list = true) {
+export function addActiveState(targetClass, stateClass = 'active', list = true) {
   let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
 
   if (list === true) {
@@ -34,7 +34,7 @@ function addActiveState(targetClass, stateClass = 'active', list = true) {
   }
 }
 
-function removeActiveState(targetClass, stateClass = 'active', list = true) {
+export function removeActiveState(targetClass, stateClass = 'active', list = true) {
   let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
 
   if (list === true) {
@@ -68,7 +68,7 @@ const createCallbackFunction = (callbackFunction, ...paramaters) => {
 // - action | value: array (!) containing one or more functions
 // * to pass functions with paramters use createCallbackFunction beforehand
 
-function triggerOnWindowBreak(breakpoint, triggerOn, actions) {
+export function triggerOnWindowBreak(breakpoint, triggerOn, actions) {
   let screenBreak
 
   // Set screen above or below breakpoint for event to take place
@@ -94,5 +94,3 @@ function triggerOnWindowBreak(breakpoint, triggerOn, actions) {
     })
   }
 }
-
-export { toggleActiveState, addActiveState, removeActiveState, createCallbackFunction, triggerOnWindowBreak }
