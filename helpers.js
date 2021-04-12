@@ -1,53 +1,3 @@
-/* Toggle active state by adding and removing class "active" */
-
-// Functions have two required parameters
-// - targetClass | value: class selector
-// - stateClass | value: string (of class added), default = 'active'
-// - list | value: true (default) / false
-// * list value determines whether all elements (true) should be targeted or only the first one (false)
-
-function toggleActiveState(targetClass, stateClass = 'active', list = true) {
-  let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
-
-  if (list === true) {
-    el.forEach(function(item) {
-      item.classList.toggle(stateClass)
-      return 'active class changed'
-    })
-  } else {
-    el.classList.toggle(stateClass)
-    return 'active class toggled'
-  }
-}
-
-function addActiveState(targetClass, stateClass = 'active', list = true) {
-  let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
-
-  if (list === true) {
-    el.forEach(function(item) {
-      item.classList.add(stateClass)
-      return 'active class added'
-    })
-  } else {
-    el.classList.add(stateClass)
-    return 'active class added'
-  }
-}
-
-function removeActiveState(targetClass, stateClass = 'active', list = true) {
-  let el = list ? document.querySelectorAll(targetClass) : document.querySelector(targetClass)
-
-  if (list === true) {
-    el.forEach(function(item) {
-      item.classList.remove(stateClass)
-      return 'active class removed'
-    })
-  } else {
-    el.classList.remove(stateClass)
-    return 'active class removed'
-  }
-}
-
 /* Create a function with parameters that can be passed as a callback */
 
 // Functions has one required parameter and unspecified number of optional
@@ -55,7 +5,7 @@ function removeActiveState(targetClass, stateClass = 'active', list = true) {
 // + parameters | value: strings
 // * parameters values are arguments for the callbackFunction
 
-const createCallbackFunction = (callbackFunction, ...paramaters) => {
+export const createCallbackFunction = (callbackFunction, ...paramaters) => {
   const execute = () => callbackFunction(...paramaters)
   return execute
 }
@@ -68,7 +18,7 @@ const createCallbackFunction = (callbackFunction, ...paramaters) => {
 // - action | value: array (!) containing one or more functions
 // * to pass functions with paramters use createCallbackFunction beforehand
 
-function triggerOnWindowBreak(breakpoint, triggerOn, actions) {
+export function triggerOnWindowBreak(breakpoint, triggerOn, actions) {
   let screenBreak
 
   // Set screen above or below breakpoint for event to take place
@@ -94,5 +44,3 @@ function triggerOnWindowBreak(breakpoint, triggerOn, actions) {
     })
   }
 }
-
-export { toggleActiveState, addActiveState, removeActiveState, createCallbackFunction, triggerOnWindowBreak }

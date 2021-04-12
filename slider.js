@@ -1,8 +1,6 @@
-/* Swiper */
+/* Swiper props */
 
-// Add swiper settings
-
-const swiperSettings = {
+const defaultSliderProps = {
   direction: 'horizontal',
   slidesPerView: 1,
   spaceBetween: 10,
@@ -31,13 +29,3 @@ const swiperSettings = {
     }
   }
 }
-
-// Add swiper to array
-const allSwipersArray = [{ class: '.swiper-container', settings: swiperSettings }]
-
-// Create array of Swiper objects
-
-let swiperInstances = allSwipersArray.map((swiper) => {
-  swiper.instance = new Swiper(swiper.class, swiper.settings)
-  return swiper
-})
