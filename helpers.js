@@ -44,3 +44,23 @@ export function triggerOnWindowBreak(breakpoint, triggerOn, actions) {
     })
   }
 }
+
+/* Append uploaded file name(s) */
+
+export function appendUploadName(inputId, nameHolder) {
+  document.getElementById(inputId).addEventListener('change', function() {
+    let loadedFiles = [
+      ...document.getElementById(inputId).files
+    ]
+    if (loadedFiles) {
+      document.getElementById(nameHolder).classList.add('active')
+
+      loadedFiles.forEach((file) => {
+        let fileNameEl = document.createElement('span')
+        let fileNameText = document.createTextNode(file.name)
+        fileNameEl.appendChild(fileNameText)
+        document.getElementById(nameHolder).appendChild(fileNameEl)
+      })
+    }
+  })
+}
