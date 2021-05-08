@@ -1,3 +1,8 @@
+/**
+ * Some default parameters for Swiper slider
+ * Full api: https://swiperjs.com/swiper-api
+ */
+
 export const exampleProps = {
   direction: 'horizontal',
   slidesPerView: 1,

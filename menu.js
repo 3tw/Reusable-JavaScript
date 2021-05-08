@@ -1,30 +1,39 @@
-export function Menu() {
-  this.el = {
-    body: document.getElementsByTagName('body')[0],
-    menu: document.querySelector('.menu'),
-    menuBtn: document.getElementById('menu-btn'),
-    menuBtnClose: document.getElementById('menu-close-btn')
-  }
+/**
+ * Create a menu object with event listeners for open and close buttons
+ * The function will 1) add 'menu-is-active' class to menu and its buttons, when the menu is open
+ * as well as 2) 'overflow-hidden' class to the body: both classes must be accompanied with css 
+ * @constructor
+ * @param {String} menu Selector for menu element that we want to dispaly
+ * @param {String} openMenuButton Selector for button that opens the menu
+ * @param {String} closeMenuButton Selector for button that closes the menu
+ * @returns {void} 
+ */
+
+export function Menu(menu, openMenuButton, closeMenuButton) {
+  this.body = document.getElementsByTagName('body')[0]
+  this.menu = document.querySelector(menu)
+  this.menuBtnOpen = document.querySelector(openMenuButton)
+  this.menuBtnClose = document.querySelector(closeMenuButton)
 
   this.init = function() {
     this.attachListeners()
   }
 
   this.attachListeners = function() {
-    this.el.menuBtn.addEventListener('click', () => this.openMenu())
-    this.el.menuBtnClose.addEventListener('click', () => this.closeMenu())
+    this.menuBtnOpen.addEventListener('click', () => this.openMenu())
+    this.menuBtnClose.addEventListener('click', () => this.closeMenu())
   }
 
   this.openMenu = function() {
-    this.el.menu.classList.add('menu-is-active')
-    this.el.menuBtn.classList.add('menu-is-active')
-    this.el.body.classList.add('overflow-hidden')
+    this.menu.classList.add('menu-is-active')
+    this.menuBtnOpen.classList.add('menu-is-active')
+    this.body.classList.add('overflow-hidden')
   }
 
   this.closeMenu = function() {
-    this.el.menu.classList.remove('menu-is-active')
-    this.el.menuBtn.classList.remove('menu-is-active')
-    this.el.body.classList.remove('overflow-hidden')
+    this.menu.classList.remove('menu-is-active')
+    this.menuBtnOpen.classList.remove('menu-is-active')
+    this.body.classList.remove('overflow-hidden')
   }
 
   this.init()

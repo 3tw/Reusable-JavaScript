@@ -1,22 +1,10 @@
-/* Create a function with parameters that can be passed as a callback */
-
-// Functions has one required parameter and unspecified number of optional
-// - callbackFunction | value: (predefined) function
-// + parameters | value: strings
-// * parameters values are arguments for the callbackFunction
-
-export const createCallbackFunction = (callbackFunction, ...paramaters) => {
-  const execute = () => callbackFunction(...paramaters)
-  return execute
-}
-
-/* Trigger a callback function(s) on window break */
-
-// Functions has three required parameters
-// - breakpoint | value: number
-// - triggerOn | value: string ('desktop'/'mobile')
-// - action | value: array (!) containing one or more functions
-// * to pass functions with paramters use createCallbackFunction beforehand
+/**
+ * Call one or more functions on a breakpoint
+ * @param {String} breakpoint Breakpoint number (in pixels)
+ * @param {String} triggerOn Determine when to trigger: either on 'desktop' or 'mobile'
+ * @param {Function[]} actions Array of one or more functions
+ * @returns {void} 
+ */
 
 export function triggerOnWindowBreak(breakpoint, triggerOn, actions) {
   let screenBreak
@@ -45,7 +33,12 @@ export function triggerOnWindowBreak(breakpoint, triggerOn, actions) {
   }
 }
 
-/* Append uploaded file name(s) */
+/**
+ * Append uploaded file name(s)
+ * @param {String} inputId Id of the input with type='file'
+ * @param {String} nameHolder Selector for element where span elements with file name are appended
+ * @returns {void} 
+ */
 
 export function appendUploadName(inputId, nameHolder) {
   document.getElementById(inputId).addEventListener('change', function() {
@@ -53,13 +46,13 @@ export function appendUploadName(inputId, nameHolder) {
       ...document.getElementById(inputId).files
     ]
     if (loadedFiles) {
-      document.getElementById(nameHolder).classList.add('active')
+      document.querySelector(nameHolder).classList.add('active')
 
       loadedFiles.forEach((file) => {
         let fileNameEl = document.createElement('span')
         let fileNameText = document.createTextNode(file.name)
         fileNameEl.appendChild(fileNameText)
-        document.getElementById(nameHolder).appendChild(fileNameEl)
+        document.querySelector(nameHolder).appendChild(fileNameEl)
       })
     }
   })

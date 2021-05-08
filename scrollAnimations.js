@@ -1,6 +1,12 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+/**
+ * Imports scrolltriggered fade animations powered by GSAP and ScrollTrigger plugin
+ * @constructor
+ * @returns {void} 
+ */
+
 export function ScrollAnimations() {
   this.val = {
     fadeLeft: '.fade-left',
