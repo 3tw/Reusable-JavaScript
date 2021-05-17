@@ -1,3 +1,3 @@
 # Reusable-JavaScript
 
-Bits and pieces of JavaScript code I often use in my projects
+Bits and pieces of my JavaScript code that I often use
